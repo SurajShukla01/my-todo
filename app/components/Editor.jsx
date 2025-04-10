@@ -1,7 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-const Editor = ({ selectedTodo, onSave, onClearSelectedTodo, onDelete }) => {
+const Editor = ({
+  selectedTodo,
+  onSave,
+  onClearSelectedTodo,
+  onDelete,
+  onBack,
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -31,11 +37,16 @@ const Editor = ({ selectedTodo, onSave, onClearSelectedTodo, onDelete }) => {
   };
 
   return (
-    <div
-      className="md:min-w-5xl rounded-xl bg-white text-black px-18 
-    py-16    shadow"
-    >
+    <div className="md:mt-8 lg:w-full rounded-xl bg-white text-black px-6 sm:px-18 lg:px-16 py-16 shadow">
       <div className="flex flex-col gap-2">
+        <div className="lg:hidden mb-4">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-gray-700 font-bold cursor-pointer"
+          >
+            <span className="text-xl">&larr;</span>Back
+          </button>
+        </div>
         <div className="flex flex-col gap-2">
           <div className="flex">
             <input
@@ -43,7 +54,7 @@ const Editor = ({ selectedTodo, onSave, onClearSelectedTodo, onDelete }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter title"
-              className="w-full text-5xl px-3 py-6 outline-none"
+              className="w-full text-3xl font-semibold sm:text-5xl pr-2 sm:px-3 sm:py-6 outline-none"
             />
             <button
               className="scale-150 hover:scale-200 transition-all cursor-pointer text-xl"
@@ -96,7 +107,7 @@ const Editor = ({ selectedTodo, onSave, onClearSelectedTodo, onDelete }) => {
             }`}
             onClick={addTodo}
           >
-            {selectedTodo ? "Save Changes" : "Add Todo"}
+            {selectedTodo?.id ? "Save Changes" : "Add Todo"}
           </button>
         </div>
       </div>

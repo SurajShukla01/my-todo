@@ -61,25 +61,45 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <div className="min-h-screen px-30 py-18 bg-gray-200 flex justify-between ">
-        <Sidebar
-          todos={todos}
-          setSelectedTodo={setSelectedTodo}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-        />
-        <Editor
-          selectedTodo={selectedTodo}
-          onSave={handleAddOrUpdate}
-          onClearSelectedTodo={() => {
-            setSelectedTodo(null);
-            setSelectedId(null);
-          }}
-          onDelete={(id) => {
-            handleDelete(id);
-            setSelectedId(null);
-          }}
-        />
+      <div className="min-h-screen pt-8  md:px-10 lg:px-16 lg:py-16 xl:px-30 xl:py-16 bg-gray-200 flex justify-between lg:gap-8 xl:gap-14 2xl:gap-20">
+        <div
+          className={`${
+            selectedTodo ? "hidden" : "block"
+          } lg:block w-full lg:w-2/5`}
+        >
+          <Sidebar
+            todos={todos}
+            setSelectedTodo={setSelectedTodo}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+            onDelete={(id) => {
+              handleDelete(id);
+              setSelectedId(null);
+            }}
+          />
+        </div>
+        <div
+          className={`${
+            selectedTodo !== null ? "block" : "hidden"
+          } w-full lg:block lg:w-3/5 px-14`}
+        >
+          <Editor
+            selectedTodo={selectedTodo}
+            onSave={handleAddOrUpdate}
+            onClearSelectedTodo={() => {
+              setSelectedTodo(null);
+              setSelectedId(null);
+            }}
+            onDelete={(id) => {
+              handleDelete(id);
+              setSelectedId(null);
+            }}
+            onBack={() => {
+              setSelectedId(null);
+              setSelectedTodo(null);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

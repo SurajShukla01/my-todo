@@ -7,6 +7,7 @@ export default function Sidebar({
   setSelectedTodo,
   selectedId,
   setSelectedId,
+  onDelete,
 }) {
   const [searchText, setSearchText] = useState("");
 
@@ -17,13 +18,14 @@ export default function Sidebar({
   );
 
   return (
-    <div className="w-full md:w-xl p-2">
+    <div className="w-full p-4">
       <div className="box-border w-[100%] flex items-center justify-between mb-8">
         <button
           className="flex cursor-pointer items-center bg-black text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-400 hover:translate-x-4 hover:text-black hover:scale-125 duration-200"
           onClick={() => {
             setSelectedId(null);
             setSelectedTodo(null);
+            // setSelectedTodo({ title: "", description: "" });
           }}
         >
           <span>📝</span>
@@ -58,9 +60,20 @@ export default function Sidebar({
                 isSelected ? "border-black" : "border-transparent"
               } bg-white hover:bg-gray-100`}
             >
-              <h3 className="mb-2 font-semibold text-black text-xl">
-                {todo.title.toUpperCase()}
-              </h3>
+              <div className="flex justify-between">
+                <h3 className="mb-2 font-semibold text-black text-xl">
+                  {todo.title}
+                </h3>
+                <button
+                  onClick={(e) => {
+                    onDelete(todo.id);
+                  }}
+                  className="text-black cursor-pointer hover:scale-150 transition-all"
+                >
+                  🗑️
+                </button>
+              </div>
+
               <p className=" text-md text-gray-700 line-clamp-2">
                 {todo.description}
               </p>
